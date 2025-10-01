@@ -22,6 +22,14 @@ To define a modern, minimalist computing environment that prioritizes speed, foc
 
 5. **Composition over Integration:** Following the Unix philosophy, the environment is built from simple, independent tools that work together. The user composes their ideal workflow rather than accepting a monolithic, pre-integrated desktop.
 
+### Plain Text Productivity
+
+Plain text is foundational to Kern, enabling focused, efficient workflows in development, writing, and productivity. By prioritizing human-readable formats like Markdown, Kern leverages Unix principles for simplicity and composability. Key benefits include:
+
+- **Speed and Simplicity:** Lightweight files edit quickly without formatting distractions, boosting focus on content.
+- **Compatibility and Future-Proofing:** Universal across devices/OS, easy to version with Git, backup, and automate with scripts/tools.
+- **Efficiency Across Workflows:** Supports distraction-free writing, dev (human-readable code), and organization; convert seamlessly (e.g., to HTML/PDF via pandoc).
+
 ---
 
 ## Why Kern? Why Not Alternatives?
@@ -84,15 +92,17 @@ The Kern environment is composed of five distinct layers, building from the base
 - **Application Launcher:** A custom script combining a system-wide file index with `fzf` (fuzzy finder), bound to a key within `zellij` to provide a "Spotlight/Alfred-like" pop-up launcher
 
 - **Core Applications:** A curated set of TUI/CLI tools to replace traditional GUI applications
-  - **File Management:** `ranger` or `nnn`
+  - **File Management:** `ranger` or `nnn`; `lf` (lightweight alternative); `zoxide` (intelligent directory jumping based on usage)
   - **Text Editing:** `neovim` or `helix`
   - **Web Browsing:** `browsh` (for modern sites), `lynx` (for text-only)
+  - **Development:** `lazygit` (TUI for Git operations like staging/branching)
   - **Productivity:** `taskwarrior` (tasks), `khal` (calendar), `neomutt` (email)
-  - **System Monitoring:** `btop` or `bottom`
+  - **System Monitoring:** `btop` or `bottom`; `gdu` (disk usage analyzer)
   - **Media Management:**
     - **Music:** `cmus` or `ncmpcpp` with `mpd`
     - **Podcast Client:** `castero` or `podboat`
     - **eBook Reader:** `epy` or `termpub`
+  - **Community Extensions:** Explore more in the upcoming `kern-apps` repository, including `lazydocker` (Docker TUI) and `Harlequin` (SQL IDE).
 
 ### Layer 4: The Graphics & Multimedia Bridge
 
@@ -104,6 +114,30 @@ The Kern environment is composed of five distinct layers, building from the base
 - **Video Playback:** `mpv` (using the `--vo=drm` output driver)
 - **Legacy/Emulation:** `dosbox` (using the `SDL_VIDEODRIVER=fbcon` environment variable)
 - **Presentations:** Markdown → HTML slides via `mdp` or export to PDF
+
+---
+
+## Variants & Hybrid Setups
+
+Kern extends beyond Linux framebuffer setups, enabling keyboard-driven, text-focused workflows in GUI terminals or SSH. This "hybrid" mode uses Zellij (or tmux) as a session manager in a maximized terminal, with seamless switching to the host OS for graphics (e.g., browser/video).
+
+### GUI Terminals on macOS/Windows/Ubuntu
+- Full-screen terminals: iTerm2, Kitty, Ghostty, or Alacritty.
+- Install tools via managers: Homebrew (macOS: `brew install zellij ranger neovim zoxide lazygit`), APT (Ubuntu: `sudo apt install ...`), Chocolatey/WSL (Windows).
+- Run `kern-hybrid.sh` to configure layouts, keybindings, and launchers for a Kern-like experience.
+
+### SSH Sessions
+- Attach remotely: `zellij attach` for persistent TUI sessions.
+- Full CLI/TUI support; framebuffer apps (e.g., video) limited to local use.
+
+Example `kern-hybrid.sh` (download via curl or Git):
+```bash
+#!/bin/bash
+# Core setup: Install/configure Zellij, fzf launcher, dotfiles.
+# Example: zellij setup --layout default && ln -s ~/.config/kern ~/.zshrc
+echo "Kern hybrid ready. Maximize terminal and run 'zellij'."
+```
+This variant makes Kern accessible on existing systems, preserving minimalist productivity.
 
 ---
 
@@ -236,8 +270,10 @@ The TTY login screen is controlled by `/etc/issue`. You can customize it with:
 
 ## Philosophy
 
-Kern represents a return to computing fundamentals: direct hardware access, composable tools, and user control. It's not about rejecting graphical interfaces entirely, but about questioning whether they're necessary for every task. For text-heavy workflows—coding, writing, system administration, research—the console provides a faster, lighter, and more focused environment than any desktop.
+Kern represents a return to computing fundamentals: direct hardware access, composable tools, and user control, anchored in plaintext for future-proof productivity—human-readable, portable, and automation-friendly across environments.
 
-By building on proven Unix principles and modern TUI applications, Kern creates a computing experience that is simultaneously retro and cutting-edge: the simplicity of 1980s terminals meets the power of 2020s tooling.
+It rejects unnecessary graphical overhead, offering a spectrum from extreme framebuffer console (on Linux) to hybrid setups in GUI terminals or SSH, enabling keyboard-driven text workflows on macOS, Windows, Ubuntu, or beyond. For coding, writing, sysadmin, and research, this delivers unmatched speed, focus, and efficiency.
+
+By blending Unix principles with modern TUIs/CLIs, Kern fuses retro terminal simplicity with 2020s tooling power, adaptable without compromise.
 
 **Fast. Focused. Foundational.**
